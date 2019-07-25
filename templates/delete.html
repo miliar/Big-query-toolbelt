@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block header %}
+    <h1>{% block title %}Delete tables{% endblock %}</h1>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <form id="form" autocomplete="off" action = "{{ url_for('delete') }}" method = "POST">
+        <div class="row">
+            {% for item in ['project', 'dataset', 'table'] %}
+               <div class="form-group">
+                    <input class="form-control mb-2 mr-sm-2" type="text" name="{{ item }}" id="{{ item }}" required="true" placeholder="{{ item }}">
+                </div>
+            {% endfor %}
+        </div>  
+        <div class="row">
+            {% for item in ['start_date', 'end_date'] %}
+                <div class="form-group" style="position: relative;">
+                    <input type="text" name="{{ item }}" class="form-control datetimepicker-input mb-2 mr-sm-2" id="{{ item }}" data-toggle="datetimepicker" data-target="#{{ item }}" required="true" placeholder="{{ ' '.join(item.split('_')) }}">
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <input id="submit" type="submit" class="btn btn-primary mb-2 mr-sm-2" value="Start">
+            <input type="reset" class="btn btn-light mb-2 mr-sm-2" value="Clear">
+        </div>    
+    </form>
+</div>
+{% endblock content %}
