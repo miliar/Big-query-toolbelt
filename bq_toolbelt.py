@@ -1,6 +1,6 @@
 from google.cloud import bigquery
 from datetime import datetime
-from helper import repeat_function_for_daterange
+from helper import get_query
 
 
 client = bigquery.Client.from_service_account_json(
@@ -19,7 +19,7 @@ def copy_table(date_suffix, source_project, source_dataset, source_table,
         source_table_ref,
         dest_table_ref,
         location='US')
-    print(f'''Send copy job for {source_project}.{source_dataset}.{source_table} to {dest_project}.{dest_dataset}.{dest_table} \n''')
+    print(f'Send copy job for {source_project}.{source_dataset}.{source_table} to {dest_project}.{dest_dataset}.{dest_table} \n')
 
 
 def delete_table(date_suffix, project, dataset, table):
@@ -29,13 +29,14 @@ def delete_table(date_suffix, project, dataset, table):
     print(f'Send delete job for {project}.{dataset}.{table} \n')
 
 
-def write_query_result(date_suffix, sql_query, project, dataset, table, write_disposition='WRITE_EMPTY'):
+def write_query_result(date_suffix, sql_filename, project, dataset, table, write_disposition='WRITE_EMPTY'):
     table += date_suffix
     table_ref = client.dataset(
         dataset, project=project).table(table)
     job_config = bigquery.QueryJobConfig()
     job_config.destination = table_ref
     job_config.write_disposition = write_disposition
-    query_job = client.query(sql_query, job_config=job_config)
+    query_job = client.query(get_query(sql_filename,
+                                       params={'date': date_suffix}), job_config=job_config)
     query_job.result()
     print(f'Query written to table: {project}.{dataset}.{table} \n')
