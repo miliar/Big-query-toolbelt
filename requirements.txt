@@ -1,0 +1,5 @@
+flask
+Jinja2
+numpy
+multiprocess
+google-cloud-bigquery
