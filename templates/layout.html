@@ -36,7 +36,9 @@
             {% with messages = get_flashed_messages() %}
                 {% for message in messages %}
                     {% if message %}
-                        <div class="d-flex p-2 bd-highlight bg-light text-dark">
+                        <div class="alert alert-success alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>&#128077;</strong> 
                             Finished job for: {% for item in message.items() %}{{item}} {% endfor %}
                         </div>     
                     {% endif %}
