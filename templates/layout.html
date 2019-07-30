@@ -32,16 +32,16 @@
             <header>
                 {% block header %}{% endblock %}
             </header>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <ul class=flashes>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
             {% block content %}{% endblock %}
+            {% with messages = get_flashed_messages() %}
+                {% for message in messages %}
+                    {% if message %}
+                        <div class="d-flex p-2 bd-highlight bg-light text-dark">
+                            Finished job for: {% for item in message.items() %}{{item}} {% endfor %}
+                        </div>     
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}   
         </div>
         <script type="text/javascript">
             $(function () {

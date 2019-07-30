@@ -7,11 +7,13 @@
     <form id="form" autocomplete="off" action = "{{ url_for('copy') }}" method = "POST">
         {% for prefix in ['source', 'destination'] %}
         	<div class="row">
-                {% for suffix in ['project', 'dataset', 'table'] %}
-                   <div class="form-group">
-                        <input class="form-control mb-2 mr-sm-2" type="text" name="{{ '_'.join([prefix, suffix]) }}" id="{{ '_'.join([prefix, suffix]) }}" required="true" placeholder="{{ ' '.join([prefix, suffix]) }}">
-                    </div>
-                {% endfor %}
+                <div class="form-inline">
+                    {% for suffix in ['project', 'dataset', 'table'] %}
+                       <div class="form-group">
+                            <input class="form-control mb-2 mr-sm-2" type="text" name="{{ '_'.join([prefix, suffix]) }}" id="{{ '_'.join([prefix, suffix]) }}" required="true" placeholder="{{ ' '.join([prefix, suffix]) }}">
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         {% endfor %}  
         <div class="row">
