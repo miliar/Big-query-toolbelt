@@ -57,6 +57,7 @@
                 $('#end_date').datetimepicker({format: 'YYYY/MM/DD'});
             });
             $('#submitbtn').click(function(){
+                this.form.valid();
                 this.form.submit();
                 this.disabled=true;
                 this.innerHTML='<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Working...';
