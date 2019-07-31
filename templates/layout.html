@@ -18,7 +18,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-            <a class="navbar-brand" href="{{ url_for('home') }}">
+            <a class="navbar-brand">
                 <img src="{{url_for('static', filename='logo.png')}}" width="40" height="40" alt="">
             </a>
             <div class="navbar-nav">
@@ -32,7 +32,13 @@
             <header>
                 {% block header %}{% endblock %}
             </header>
-            {% block content %}{% endblock %}
+            <div class="container">
+                {% block content %}{% endblock %}
+                <div class="row form-inline">
+                    <button id="submitbtn" type="submit" class="btn btn-primary mb-2 mr-sm-2">Start</button>
+                    <button type="reset" class="btn btn-light mb-2 mr-sm-2">Reset</button>
+                </div></form>
+
             {% with messages = get_flashed_messages() %}
                 {% for message in messages %}
                     {% if message %}
@@ -49,6 +55,11 @@
             $(function () {
                 $('#start_date').datetimepicker({format: 'YYYY/MM/DD'});
                 $('#end_date').datetimepicker({format: 'YYYY/MM/DD'});
+            });
+            $('#submitbtn').click(function(){
+                this.form.submit();
+                this.disabled=true;
+                this.innerHTML='<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Working...';
             });
         </script>
     </body>

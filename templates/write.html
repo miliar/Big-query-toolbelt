@@ -3,32 +3,34 @@
     <h1>{% block title %}Write queries{% endblock %}</h1>
 {% endblock %}
 {% block content %}
-<div class="container">
     <form id="form" autocomplete="off" action = "{{ url_for('write') }}" method = "POST" enctype=multipart/form-data>
-	    <div class="row">
-            <div class="form-group">
-                <label for="sql_file">SQL file input</label>
-                <input type="file" name="sql_file" class="form-control-file" id="sql_file" required="true">
-            </div>
-        </div>		
-		<div class="row">
-            {% for item in ['project', 'dataset', 'table'] %}
-               <div class="form-group">
-                    <input class="form-control mb-2 mr-sm-2" type="text" name="{{ item }}" id="{{ item }}" required="true" placeholder="{{ item }}">
-                </div>
+        <div class="row form-inline form-group">
+            <label for="sql_file">SQL file input</label>
+            <input type="file" name="sql_file" class="form-control-file mb-2 mr-sm-2" id="sql_file" required="true">       
+        </div>      
+        <div class="row form-inline form-group">
+            {% for item in ['project', 'dataset', 'table'] %} 
+                <input class="form-control mb-2 mr-sm-2" type="text" name="{{ item }}" id="{{ item }}" required="true" placeholder="{{ item }}">   
             {% endfor %}
         </div>  
-        <div class="row">
+        <div class="row form-inline form-group" style="position: relative;">
             {% for item in ['start_date', 'end_date'] %}
-                <div class="form-group" style="position: relative;">
-                    <input type="text" name="{{ item }}" class="form-control datetimepicker-input mb-2 mr-sm-2" id="{{ item }}" data-toggle="datetimepicker" data-target="#{{ item }}" required="true" placeholder="{{ ' '.join(item.split('_')) }}">
-                </div>
-            {% endfor %}
+                <input type="text" name="{{ item }}" class="form-control datetimepicker-input mb-2 mr-sm-2" id="{{ item }}" data-toggle="datetimepicker" data-target="#{{ item }}" required="true" placeholder="{{ ' '.join(item.split('_')) }}">    
+            {% endfor %}   
         </div>
         <div class="row">
-            <input id="submit" type="submit" class="btn btn-primary mb-2 mr-sm-2" value="Start">
-            <input type="reset" class="btn btn-light mb-2 mr-sm-2" value="Clear">
-        </div>    
-    </form>
-</div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="write_disposition" id="write_empty" value="WRITE_EMPTY" checked>
+              <label class="form-check-label" for="write_empty">write empty</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="write_disposition" id="write_truncate" value="WRITE_TRUNCATE">
+              <label class="form-check-label" for="write_truncate">write truncate</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="write_disposition" id="write_append" value="WRITE_APPEND">
+              <label class="form-check-label" for="write_append">write_append</label>
+            </div>
+        </div>
+        <br>
 {% endblock content %}
