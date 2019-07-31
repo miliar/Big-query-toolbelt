@@ -4,7 +4,7 @@ Tool for copy tables, delete tables and write queries for time range
 
 Setup:
 - Create a folder ```bq_service_account```, place your service account file inside and name it ```bq_service_account.json```
-- docker build -t bq_toolbelt .
+- docker build -t bq_toolbelt .     (<-- Don't miss the point)
 
 Run the app:
 - docker run -p 4000:4000 bq_toolbelt
