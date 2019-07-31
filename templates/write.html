@@ -5,7 +5,7 @@
 {% block content %}
     <form id="form" autocomplete="off" action = "{{ url_for('write') }}" method = "POST" enctype=multipart/form-data>
         <div class="row form-inline form-group">
-            <label for="sql_file">SQL file input, {{date}} will be rendered</label>
+            <label for="sql_file">SQL file input (date template will be rendered YYYYMMDD)</label>
             <input type="file" name="sql_file" class="form-control-file mb-2 mr-sm-2" id="sql_file" required="true">       
         </div>      
         <div class="row form-inline form-group">
