@@ -10,11 +10,6 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 @app.route("/")
-@app.route("/home")
-def home():
-    return render_template('home.html')
-
-
 @app.route("/copy", methods=['POST', 'GET'])
 def copy():
     if request.method == 'POST':
@@ -51,12 +46,12 @@ def write():
     if request.method == 'POST':
         request.files['sql_file'].save(os.path.join(
             './sql_template', 'sql_template.sql'))
-
         repeat_function_for_daterange(function=write_query_result,
                                       parameters={'project': request.form['project'],
                                                   'dataset': request.form['dataset'],
                                                   'table': request.form['table'],
-                                                  'sql_filename': 'sql_template.sql'},
+                                                  'sql_filename': 'sql_template.sql',
+                                                  'write_disposition': request.form['write_disposition']},
                                       start_date=datetime.strptime(
                                           request.form['start_date'], '%Y/%m/%d'),
                                       end_date=datetime.strptime(request.form['end_date'], '%Y/%m/%d'))

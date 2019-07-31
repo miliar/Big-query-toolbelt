@@ -29,7 +29,7 @@ def delete_table(date_suffix, project, dataset, table):
     print(f'Send delete job for {project}.{dataset}.{table} \n')
 
 
-def write_query_result(date_suffix, sql_filename, project, dataset, table, write_disposition='WRITE_TRUNCATE'):
+def write_query_result(date_suffix, sql_filename, project, dataset, table, write_disposition):
     table += date_suffix
     table_ref = client.dataset(
         dataset, project=project).table(table)
