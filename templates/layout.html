@@ -38,7 +38,6 @@
                     <button id="submitbtn" type="submit" class="btn btn-primary mb-2 mr-sm-2">Start</button>
                     <button type="reset" class="btn btn-light mb-2 mr-sm-2">Reset</button>
                 </div></form>
-
             {% with messages = get_flashed_messages() %}
                 {% for message in messages %}
                     {% if message %}
@@ -56,11 +55,10 @@
                 $('#start_date').datetimepicker({format: 'YYYY/MM/DD'});
                 $('#end_date').datetimepicker({format: 'YYYY/MM/DD'});
             });
-            $('#submitbtn').click(function(){
-                this.form.valid();
-                this.form.submit();
-                this.disabled=true;
-                this.innerHTML='<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Working...';
+            $(document).ready(function() {
+                $('form').on('submit', function() {
+                    $('#submitbtn').attr('disabled', 'disabled').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Working...');
+                });
             });
         </script>
     </body>
