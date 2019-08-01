@@ -7,5 +7,5 @@ Setup:
 - ```docker build -t bq_toolbelt .```     (<-- Don't miss the point)
 
 Run the app:
-- docker run -p 4000:4000 bq_toolbelt
+- ```docker run -p 4000:4000 bq_toolbelt```
 - In your browser, visit http://localhost:4000/
