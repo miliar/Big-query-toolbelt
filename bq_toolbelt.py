@@ -30,7 +30,11 @@ def delete_table(date_suffix, project, dataset, table):
 
 
 def write_query_result(date_suffix, sql_filename, project, dataset, table, write_disposition):
-    table += date_suffix
+    if write_disposition == 'WRITE_APPEND_ONE':
+        write_disposition = 'WRITE_APPEND'
+    else:
+        table += date_suffix
+
     table_ref = client.dataset(
         dataset, project=project).table(table)
     job_config = bigquery.QueryJobConfig()

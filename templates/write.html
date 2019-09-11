@@ -5,7 +5,7 @@
 {% block content %}
     <form id="form" autocomplete="off" action = "{{ url_for('write') }}" method = "POST" enctype=multipart/form-data>
         <div class="row form-inline form-group">
-            <label for="sql_file">SQL file input (date template will be rendered YYYYMMDD)</label>
+            <label for="sql_file">{% raw %}SQL file input ('{{date}}' template will be rendered YYYYMMDD){% endraw %}</label>
             <input type="file" name="sql_file" class="form-control-file mb-2 mr-sm-2" id="sql_file" required="true">       
         </div>      
         <div class="row form-inline form-group">
@@ -18,18 +18,30 @@
                 <input type="text" name="{{ item }}" class="form-control datetimepicker-input mb-2 mr-sm-2" id="{{ item }}" data-toggle="datetimepicker" data-target="#{{ item }}" required="true" placeholder="{{ ' '.join(item.split('_')) }}">    
             {% endfor %}   
         </div>
-        <div class="row">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="write_disposition" id="write_empty" value="WRITE_EMPTY" checked>
-              <label class="form-check-label" for="write_empty">write empty</label>
+        
+            <div class="row">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="write_disposition" id="write_empty" value="WRITE_EMPTY" checked>
+                  <label class="form-check-label" for="write_empty">Write empty to `tableYYYYMMDD`</label>
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="write_disposition" id="write_truncate" value="WRITE_TRUNCATE">
-              <label class="form-check-label" for="write_truncate">write truncate</label>
+            <div class="row">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="write_disposition" id="write_truncate" value="WRITE_TRUNCATE">
+                  <label class="form-check-label" for="write_truncate">Write truncate to `tableYYYYMMDD`</label>
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="write_disposition" id="write_append" value="WRITE_APPEND">
-              <label class="form-check-label" for="write_append">write_append</label>
+            <div class="row">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="write_disposition" id="write_append" value="WRITE_APPEND">
+                  <label class="form-check-label" for="write_append">Write append to `tableYYYYMMDD`</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="write_disposition" id="write_append_one" value="WRITE_APPEND_ONE">
+                  <label class="form-check-label" for="write_append">Write append to `table`</label>
+                </div>
             </div>
         </div>
         <br>
