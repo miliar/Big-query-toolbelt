@@ -3,46 +3,20 @@
     <h1>{% block title %}Write queries{% endblock %}</h1>
 {% endblock %}
 {% block content %}
-    <form id="form" autocomplete="off" action = "{{ url_for('write') }}" method = "POST" enctype=multipart/form-data>
-        <div class="row form-inline form-group">
-            <label for="sql_file">{% raw %}SQL file input ('{{date}}' template will be rendered YYYYMMDD){% endraw %}</label>
-            <input type="file" name="sql_file" class="form-control-file mb-2 mr-sm-2" id="sql_file" required="true">       
-        </div>      
-        <div class="row form-inline form-group">
-            {% for item in ['project', 'dataset', 'table'] %} 
-                <input class="form-control mb-2 mr-sm-2" type="text" name="{{ item }}" id="{{ item }}" required="true" placeholder="{{ item }}">   
-            {% endfor %}
-        </div>  
-        <div class="row form-inline form-group" style="position: relative;">
-            {% for item in ['start_date', 'end_date'] %}
-                <input type="text" name="{{ item }}" class="form-control datetimepicker-input mb-2 mr-sm-2" id="{{ item }}" data-toggle="datetimepicker" data-target="#{{ item }}" required="true" placeholder="{{ ' '.join(item.split('_')) }}">    
-            {% endfor %}   
-        </div>
-        
-            <div class="row">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="write_disposition" id="write_empty" value="WRITE_EMPTY" checked>
-                  <label class="form-check-label" for="write_empty">Write empty to `tableYYYYMMDD`</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="write_disposition" id="write_truncate" value="WRITE_TRUNCATE">
-                  <label class="form-check-label" for="write_truncate">Write truncate to `tableYYYYMMDD`</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="write_disposition" id="write_append" value="WRITE_APPEND">
-                  <label class="form-check-label" for="write_append">Write append to `tableYYYYMMDD`</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="write_disposition" id="write_append_one" value="WRITE_APPEND_ONE">
-                  <label class="form-check-label" for="write_append">Write append to `table`</label>
-                </div>
-            </div>
-        </div>
-        <br>
+    <div class="row form-inline form-group">
+        <label for="sql_file">{% raw %}SQL file input ('{{date}}' template will be rendered YYYYMMDD){% endraw %}</label>
+        <input type="file" name="sql_file" class="form-control-file mb-2 mr-sm-2" required="true">
+    </div>
+    <div class="row form-inline form-group">
+        {% for item in ['project', 'dataset', 'table'] %}
+            <input class="form-control mb-2 mr-sm-2" type="text" name="{{ item }}" required="true" placeholder="{{ item }}">
+        {% endfor %}
+    </div>
+    <select class="custom-select row form-group col-4" name="write_disposition">
+        <option selected>Choose write disposition</option>
+        <option value="WRITE_EMPTY">Write empty to `tableYYYYMMDD`</option>
+        <option value="WRITE_TRUNCATE">Write truncate to `tableYYYYMMDD`</option>
+        <option value="WRITE_APPEND">Write append to `tableYYYYMMDD`</option>
+        <option value="WRITE_APPEND_ONE">Write append to `table`</option>
+    </select>
 {% endblock content %}

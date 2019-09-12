@@ -3,15 +3,9 @@
     <h1>{% block title %}Delete tables{% endblock %}</h1>
 {% endblock %}
 {% block content %}
-    <form id="form" autocomplete="off" action = "{{ url_for('delete') }}" method = "POST">
-        <div class="row form-inline form-group">
-            {% for item in ['project', 'dataset', 'table'] %}
-                <input class="form-control mb-2 mr-sm-2" type="text" name="{{ item }}" id="{{ item }}" required="true" placeholder="{{ item }}">      
-            {% endfor %}   
-        </div>  
-        <div class="row form-inline form-group" style="position: relative;">
-            {% for item in ['start_date', 'end_date'] %}
-                <input type="text" name="{{ item }}" class="form-control datetimepicker-input mb-2 mr-sm-2" id="{{ item }}" data-toggle="datetimepicker" data-target="#{{ item }}" required="true" placeholder="{{ ' '.join(item.split('_')) }}">     
-            {% endfor %}  
-        </div>
+    <div class="row form-inline form-group">
+        {% for item in ['project', 'dataset', 'table'] %}
+            <input class="form-control mb-2 mr-sm-2" type="text" name="{{ item }}" required="true" placeholder="{{ item }}">
+        {% endfor %}
+    </div>
 {% endblock content %}

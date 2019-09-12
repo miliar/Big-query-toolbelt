@@ -33,28 +33,75 @@
                 {% block header %}{% endblock %}
             </header>
             <div class="container">
-                {% block content %}{% endblock %}
-                <div class="row form-inline">
-                    <button id="submitbtn" type="submit" class="btn btn-primary mb-2 mr-sm-2">Start</button>
-                    <button type="reset" class="btn btn-light mb-2 mr-sm-2">Reset</button>
-                </div></form>
+                <form id="form" autocomplete="off" method = "POST" enctype=multipart/form-data>
+                    <div class="controls">
+                        <div class="entry">
+                            {% block content %}{% endblock %}
+                            <div class="row form-inline form-group" style="position: relative;">
+                                {% for item in ['start_date', 'end_date'] %}
+                                    <input type="text" name="{{ item }}" class="form-control datetimepicker-input mb-2 mr-sm-2" id="{{ item }}1" data-toggle="datetimepicker" data-target="#{{ item }}1" required="true" placeholder="{{ ' '.join(item.split('_')) }}">
+                                {% endfor %}
+                            </div>
+                            <div class="col-5 form-inline form-group float-right">
+                            <button class="btn btn-success btn-add btn-sm" type="button">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-inline">
+                        <button id="submitbtn" type="submit" class="btn btn-primary mb-2 mr-sm-2">Start</button>
+                        <button type="reset" class="btn btn-light mb-2 mr-sm-2">Reset</button>
+                    </div>
+                </form>
             {% with messages = get_flashed_messages() %}
                 {% for message in messages %}
                     {% if message %}
                         <div class="alert alert-success alert-dismissible">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>&#128077;</strong> 
-                            Finished job for: {% for item in message.items() %}{{item}} {% endfor %}
+                            Finished job for: {{ message }}
                         </div>     
                     {% endif %}
                 {% endfor %}
-            {% endwith %}   
+            {% endwith %}
         </div>
         <script type="text/javascript">
             $(function () {
-                $('#start_date').datetimepicker({format: 'YYYY/MM/DD'});
-                $('#end_date').datetimepicker({format: 'YYYY/MM/DD'});
+                $('.datetimepicker-input').datetimepicker({format: 'YYYY/MM/DD'});
             });
+
+            $(function() {
+                $(document).on('click', '.btn-add', function(e)
+                {
+                    e.preventDefault();
+
+                    var controlForm = $('.controls:first'),
+                        currentEntry = $(this).parents('.entry:first'),
+                        newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+                    newEntry.find('input').val('');
+
+                    newEntry.find("[name$='_date']")
+                        .attr('id', function(n, v){
+                            return v+'_';
+                        })
+                        .attr('data-target', function(n, v){
+                            return v+'_';
+                        })
+                        .datetimepicker({format: 'YYYY/MM/DD'});
+
+                    controlForm.find('.entry:not(:last) .btn-add')
+                        .removeClass('btn-add').addClass('btn-remove')
+                        .removeClass('btn-success').addClass('btn-danger')
+                        .html('-');
+                }).on('click', '.btn-remove', function(e)
+                {
+                    $(this).parents('.entry:first').remove();
+
+                    e.preventDefault();
+                    return false;
+                });
+            });
+
             $(document).ready(function() {
                 $('form').on('submit', function() {
                     $('#submitbtn').attr('disabled', 'disabled').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Working...');

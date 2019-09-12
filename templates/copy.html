@@ -3,17 +3,11 @@
     <h1>{% block title %}Copy tables{% endblock %}</h1>
 {% endblock %}
 {% block content %} 
-    <form id="form" autocomplete="off" action = "{{ url_for('copy') }}" method = "POST">
-        {% for prefix in ['source', 'destination'] %}
-            <div class="row form-inline form-group">
-                {% for suffix in ['project', 'dataset', 'table'] %}
-                    <input class="form-control mb-2 mr-sm-2" type="text" name="{{ '_'.join([prefix, suffix]) }}" id="{{ '_'.join([prefix, suffix]) }}" required="true" placeholder="{{ ' '.join([prefix, suffix]) }}">
-                {% endfor %}   
-            </div>
-        {% endfor %}  
-        <div class="row form-inline form-group" style="position: relative;">
-            {% for item in ['start_date', 'end_date'] %}
-                <input type="text" name="{{ item }}" class="form-control datetimepicker-input mb-2 mr-sm-2" id="{{ item }}" data-toggle="datetimepicker" data-target="#{{ item }}" required="true" placeholder="{{ ' '.join(item.split('_')) }}">      
+    {% for prefix in ['source', 'destination'] %}
+        <div class="row form-inline form-group">
+            {% for suffix in ['project', 'dataset', 'table'] %}
+                <input class="form-control mb-2 mr-sm-2" type="text" name="{{ '_'.join([prefix, suffix]) }}" required="true" placeholder="{{ ' '.join([prefix, suffix]) }}">
             {% endfor %}
         </div>
+    {% endfor %}
 {% endblock content %}
