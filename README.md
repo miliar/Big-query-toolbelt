@@ -3,7 +3,8 @@
 Tool for copy tables, delete tables and write queries for time range
 
 
-<img width="831" alt="Screenshot 2019-07-31 at 16 17 29" src="https://user-images.githubusercontent.com/35922697/62219741-2604ac80-b3af-11e9-89a8-bca20eb37d40.png">
+<img width="685" alt="Screenshot 2019-09-13 at 10 57 00" src="https://user-images.githubusercontent.com/35922697/64850497-cb00df00-d615-11e9-953b-924a31df87b7.png">
+
 
 Setup:
 - Create a folder ```bq_service_account```, place your service account file inside and name it ```bq_service_account.json```
