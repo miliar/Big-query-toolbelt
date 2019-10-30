@@ -14,7 +14,7 @@ def _get_jobs():
             for values_list in [list(values) for values in zip(*request.form.listvalues())]]
 
 
-@app.route("/")
+@app.route("/", methods=['POST', 'GET'])
 @app.route("/copy", methods=['POST', 'GET'])
 def copy():
     if request.method == 'POST':
